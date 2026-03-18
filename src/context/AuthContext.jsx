@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState } from 'react'
 import api from '../api/axios'
 
 const AuthContext = createContext(null)
@@ -11,17 +11,12 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(false)
 
   const login = async (email, password) => {
-    const formData = new FormData()
-    formData.append('username', email)
-    formData.append('password', password)
-
-    const res = await api.post('/auth/login', formData, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    })
+    // Backend JSON body নেয়, form data না
+    const res = await api.post('/auth/login', { email, password })
     const { access_token } = res.data
     localStorage.setItem('token', access_token)
 
-    // user info fetch
+    // token দিয়ে user info fetch
     const me = await api.get('/users/me', {
       headers: { Authorization: `Bearer ${access_token}` },
     })
