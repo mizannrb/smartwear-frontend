@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Users, Package, ShoppingBag, Tag, Plus, Pencil, Trash2, Ban, CheckCircle, X } from 'lucide-react'
-import api from '../api/axios'
+import api from '../../api/axios'
 import toast from 'react-hot-toast'
 
 const tabs = [
@@ -131,9 +131,8 @@ export default function Admin() {
       <div className="flex gap-1 mb-8 bg-gray-100 p-1 rounded-xl w-fit flex-wrap">
         {tabs.map(({ id, label, icon: Icon }) => (
           <button key={id} onClick={() => setActive(id)}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-body text-sm font-medium transition-all ${
-              active === id ? 'bg-white text-brand-600 shadow-sm' : 'text-gray-500 hover:text-brand-600'
-            }`}>
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg font-body text-sm font-medium transition-all ${active === id ? 'bg-white text-brand-600 shadow-sm' : 'text-gray-500 hover:text-brand-600'
+              }`}>
             <Icon size={14} /> {label}
           </button>
         ))}
@@ -332,21 +331,21 @@ export default function Admin() {
             {/* Product Form */}
             {modal.type === 'product' && (
               <form onSubmit={saveProduct} className="space-y-4">
-                {[['name','পণ্যের নাম *','text'],['price','মূল্য *','number'],['stock','স্টক *','number'],['image_url','Image URL','url']].map(([key, label, type]) => (
+                {[['name', 'পণ্যের নাম *', 'text'], ['price', 'মূল্য *', 'number'], ['stock', 'স্টক *', 'number'], ['image_url', 'Image URL', 'url']].map(([key, label, type]) => (
                   <div key={key}>
                     <label className="label">{label}</label>
-                    <input type={type} value={form[key] || ''} onChange={e => setForm({...form, [key]: e.target.value})}
+                    <input type={type} value={form[key] || ''} onChange={e => setForm({ ...form, [key]: e.target.value })}
                       className="input-field" required={label.includes('*')} />
                   </div>
                 ))}
                 <div>
                   <label className="label">বিবরণ</label>
-                  <textarea value={form.description || ''} onChange={e => setForm({...form, description: e.target.value})}
+                  <textarea value={form.description || ''} onChange={e => setForm({ ...form, description: e.target.value })}
                     className="input-field resize-none" rows={2} />
                 </div>
                 <div>
                   <label className="label">ক্যাটাগরি *</label>
-                  <select value={form.category_id || ''} onChange={e => setForm({...form, category_id: e.target.value})}
+                  <select value={form.category_id || ''} onChange={e => setForm({ ...form, category_id: e.target.value })}
                     className="input-field" required>
                     <option value="">বেছে নিন</option>
                     {data.categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -364,11 +363,11 @@ export default function Admin() {
               <form onSubmit={saveCategory} className="space-y-4">
                 <div>
                   <label className="label">নাম *</label>
-                  <input value={form.name || ''} onChange={e => setForm({...form, name: e.target.value})} className="input-field" required />
+                  <input value={form.name || ''} onChange={e => setForm({ ...form, name: e.target.value })} className="input-field" required />
                 </div>
                 <div>
                   <label className="label">Slug * <span className="text-gray-400 font-normal text-xs">(ইংরেজিতে, ছোট হাতে)</span></label>
-                  <input value={form.slug || ''} onChange={e => setForm({...form, slug: e.target.value.toLowerCase().replace(/\s+/g, '-')})}
+                  <input value={form.slug || ''} onChange={e => setForm({ ...form, slug: e.target.value.toLowerCase().replace(/\s+/g, '-') })}
                     className="input-field" placeholder="shirt" required />
                 </div>
                 <div className="flex gap-3 pt-2">
@@ -381,10 +380,10 @@ export default function Admin() {
             {/* User Form */}
             {modal.type === 'user' && (
               <form onSubmit={addUser} className="space-y-4">
-                {[['name','নাম *','text'],['email','ইমেইল *','email'],['password','পাসওয়ার্ড * (কমপক্ষে ৬ অক্ষর)','password'],['phone','ফোন','tel']].map(([key, label, type]) => (
+                {[['name', 'নাম *', 'text'], ['email', 'ইমেইল *', 'email'], ['password', 'পাসওয়ার্ড * (কমপক্ষে ৬ অক্ষর)', 'password'], ['phone', 'ফোন', 'tel']].map(([key, label, type]) => (
                   <div key={key}>
                     <label className="label">{label}</label>
-                    <input type={type} value={form[key] || ''} onChange={e => setForm({...form, [key]: e.target.value})}
+                    <input type={type} value={form[key] || ''} onChange={e => setForm({ ...form, [key]: e.target.value })}
                       className="input-field" required={label.includes('*')} />
                   </div>
                 ))}
