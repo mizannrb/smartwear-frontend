@@ -11,12 +11,9 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(false)
 
   const login = async (email, password) => {
-    // Backend JSON body নেয়, form data না
     const res = await api.post('/auth/login', { email, password })
     const { access_token } = res.data
     localStorage.setItem('token', access_token)
-
-    // token দিয়ে user info fetch
     const me = await api.get('/users/me', {
       headers: { Authorization: `Bearer ${access_token}` },
     })
