@@ -14,6 +14,7 @@ export function AuthProvider({ children }) {
     const res = await api.post('/auth/login', { email, password })
     const { access_token } = res.data
     localStorage.setItem('token', access_token)
+
     const me = await api.get('/users/me', {
       headers: { Authorization: `Bearer ${access_token}` },
     })
